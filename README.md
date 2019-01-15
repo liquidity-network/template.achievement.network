@@ -35,6 +35,8 @@ source private.key
 PRIVATE_KEY=${PRIVATE_KEY} make debug
 ```
 
+4. Website is located under `http://localhost:4000`
+
 ### On Ropsten
 
 1. Save the private key associated to your ropsten account in a file named `private.key` as follow:
@@ -48,3 +50,21 @@ source private.key
 PRIVATE_KEY=${PRIVATE_KEY} make build
 ```
 
+3. Website has been saved in `_book`. You can host it anywhere you want (Github pages for instance).
+
+### Write Mode
+
+If you only need to verify your syntax and not test it on a real blockchain
+
+1. Set your private key to `0x0` (optional)
+```text
+PRIVATE_KEY=0x0000000000000000000000000000000000000000
+```
+
+2. Run
+```sh
+source private.key
+PRIVATE_KEY=${PRIVATE_KEY} make write
+```
+
+3. Website is located under `http://localhost:4000`

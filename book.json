@@ -1,7 +1,10 @@
 {
     "title": "Template",
-    "author": "Liquidity.Network",
+    "author": "Liquidity.network",
     "plugins": [
-        "exercises"
+	"collapsible-menu",
+        "exercises",
+	"-sharing",
+	"-fontsettings"
     ]
 }

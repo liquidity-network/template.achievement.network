@@ -1,10 +1,10 @@
 # Summary
 
 * [Introduction](README.md)
-* [Muffin](contracts/muffin.md)
+* [Template exercise](contracts/MODIFY_ME.md)
 
 -----
 
-* [Main Website](https://blockchainworkbench.com)
-* [Github](https://github.com/thibmeu/test-workbench)
+* [Main Website](https://achievement.network)
+* [Github](https://github.com/liquidity-network/template.achievement.network)
 

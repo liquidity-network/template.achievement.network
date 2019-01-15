@@ -23,7 +23,6 @@ RUN npm install --global gitbook-cli \
 	&& npm cache clear --force \
 	&& apt-get update \
 	&& apt-get install --no-install-recommends --no-install-suggests -y git build-essential python3-pip lftp calibre \
-	&& pip3 install --pre Pygments pygments-lexer-solidity pygments-markdown-lexer \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /tmp/*
 
@@ -38,3 +37,4 @@ EXPOSE 4000 35729
 
 # Default cmd is version display
 CMD /usr/local/bin/gitbook -V
+
