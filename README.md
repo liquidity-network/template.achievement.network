@@ -18,7 +18,7 @@ npm link gitbook-plugin-exercises
 gitbook install
 ```
 
-## Run locally
+## Docker
 
 ### Local blockchain
 
@@ -32,6 +32,7 @@ PRIVATE_KEY=...
 3. Run
 ```sh
 source private.key
+PRIVATE_KEY=${PRIVATE_KEY} make install
 PRIVATE_KEY=${PRIVATE_KEY} make debug
 ```
 
@@ -47,6 +48,7 @@ PRIVATE_KEY=...
 2. Run
 ```sh
 source private.key
+PRIVATE_KEY=${PRIVATE_KEY} make install
 PRIVATE_KEY=${PRIVATE_KEY} make build
 ```
 
@@ -64,6 +66,7 @@ PRIVATE_KEY=0x0000000000000000000000000000000000000000
 2. Run
 ```sh
 source private.key
+PRIVATE_KEY=${PRIVATE_KEY} make install
 PRIVATE_KEY=${PRIVATE_KEY} make write
 ```
 
