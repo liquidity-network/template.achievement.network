@@ -46,7 +46,7 @@ contract TwoSig {
     }
 
     // Use the modifier above to create public function 'action'
-    // This function should transfer the contract's balance to 'recipeint'
+    // This function should transfer the contract's balance to 'recipient'
     // Don't forget to reset the mapping afterwards !
     function action() public allRegistered() {
         recipient.transfer(address(this).balance);
