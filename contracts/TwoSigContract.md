@@ -31,10 +31,30 @@ constructor([arg1, arg2, ...]) public {
 }
 ```
 
+{% exercise %}
+
+{% initial %}
+
+{% solution %}
+
+{% validation %}
+
+{% endexercise %}
+
 
 ## Checking signatures
 
 Every time the contract receives a transaction, it should check the sender's address contained in `msg.sender`. If that address matches one of the two parties and if that address has not already been registered, we set the register flag to `true` for that address. You should make use of modifiers for these checks.
+
+{% exercise %}
+
+{% initial %}
+
+{% solution %}
+
+{% validation %}
+
+{% endexercise %}
 
 
 ## Implementing the action
@@ -42,6 +62,16 @@ Every time the contract receives a transaction, it should check the sender's add
 Finally we implement the action to perform when all participants have given their consent. The function `action()` should check if both parties are registered, run the operation then reset the register flags to `false`.
 
 In our case we will sent the contract's balance to one of the participant but in reality this is where payment are sent, usually to a third party.
+
+{% exercise %}
+
+{% initial %}
+
+{% solution %}
+
+{% validation %}
+
+{% endexercise %}
 
 
 ## Going further
