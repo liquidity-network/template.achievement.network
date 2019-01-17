@@ -32,12 +32,67 @@ constructor([arg1, arg2, ...]) public {
 ```
 
 {% exercise %}
+Declare variables and initialize them in the constructor
 
 {% initial %}
+pragma solidity ^0.4.24;
+
+contract TwoSig {
+
+    // 'recipent' will receive the payment
+    address private recipient;
+    // Declare the addresses of the two participants 'partyA' and 'partyB'
+
+    // Declare the mapping 'registered' which maps an address to a boolean
+
+    constructor(address addrA, address addrB, address addrRecipient) public {
+        recipient = addrRecipient;
+        // Initialize the addresses of participants
+
+        // Initialize the mapping for participants 'partyA' and 'partyB'
+    }
+}
 
 {% solution %}
+pragma solidity ^0.4.24;
+
+contract TwoSig {
+
+    // 'recipent' will receive the payment
+    address private recipient;
+    // Declare the addresses of the two participants 'partyA' and 'partyB'
+    address private partyA;
+    address private partyB;
+    // Declare the mapping 'registered' which maps an address to a boolean
+    mapping(address => bool) private registered;
+
+    constructor(address addrA, address addrB, address addrRecipient) public {
+        recipient = addrRecipient;
+        // Initialize the addresses of participants
+        partyA    = addrA;
+        partyB    = addrB;
+
+        // Initialize the mapping for participants 'partyA' and 'partyB'
+        registered[partyA] = false;
+        registered[partyB] = false;
+    }
+}
 
 {% validation %}
+pragma solidity ^0.4.24;
+
+import 'Assert.sol';
+import 'TwoSig.sol';
+
+contract TestTwoSig {
+    TwoSig deployedContract = TwoSig(__ADDRESS__);
+
+    function test() public {
+        Assert.equal(1, 1, "No verification for this exercise.");
+    }
+
+    event TestEvent(bool indexed result, string message);
+}
 
 {% endexercise %}
 
