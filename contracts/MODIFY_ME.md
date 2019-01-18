@@ -92,21 +92,15 @@ contract TestTwoSig {
     TwoSig testContract = new TwoSig(addrA, addrB, addrC);
 
     function testPartyA() public {
-        address valueA    = address(testContract.partyA);
+        address valueA    = testContract.partyA();
         address expectedA = addrA;
         Assert.equal(valueA, expectedA, "partyA is not properly initialized");
     }
 
     function testPartyB() public {
-        address valueB    = address(testContract.partyB);
+        address valueB    = testContract.partyB();
         address expectedB = addrB;
         Assert.equal(valueB, expectedB, "partyB is not properly initialized");
-    }
-
-    function testRecipient() public {
-        address valueC    = address(testContract.recipient);
-        address expectedC = addrC;
-        Assert.equal(valueC, expectedC, "recipient is not properly initialized");
     }
 
     event TestEvent(bool indexed result, string message);
