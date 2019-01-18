@@ -85,6 +85,33 @@ pragma solidity ^0.4.24;
 import 'Assert.sol';
 import 'TwoSig.sol';
 
+contract TestTwoSig {
+    address private addrA = 0x4A40AEb30e521e00C68939cc903fd79dCbFACD77;
+    address private addrB = 0x73B1E6210c336EbADc7a40C5CeCa0d70839b1107;
+    address private addrC = 0x1a796C0429B1DB68E8ED43D45e51991Df51f2433;
+    TwoSig deployedContract = new TwoSig(__ADDRESS__, addrA, addrB, addrC);
+
+    function testPartyA() public {
+        address valueA    = address(deployedContract.partyA);
+        address expectedA = addrA;
+        Assert.equal(valueA, expectedA, "partyA is not properly initialized");
+    }
+
+    function testPartyB() public {
+        address valueB    = address(deployedContract.partyB);
+        address expectedB = addrB;
+        Assert.equal(valueB, expectedB, "partyB is not properly initialized");
+    }
+
+    function testRecipient() public {
+        address valueC    = address(deployedContract.recipient);
+        address expectedC = addrC;
+        Assert.equal(valueC, expectedC, "recipient is not properly initialized");
+    }
+
+    event TestEvent(bool indexed result, string message);
+}
+
 
 {% endexercise %}
 
