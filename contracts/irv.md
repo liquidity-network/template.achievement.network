@@ -23,17 +23,19 @@ votes as long as it has more than any other individual option, and voters may
 end up voting not for whichever option they want, but rather against options 
 they don't want.
 
-## Single Transferable Vote (STV)
+## Instant-Runoff Voting (IRV)
 
-Single Transferable Vote is a different type of voting system which has been
-used for votes in some countries. The basic idea behind it is that you don't
-just vote for one option, but rather you rank them in order of your
-preferences. Then, the option with the least 'first ranked' votes get
-eliminated, and the voters for that option have their second preferences
-redistributed, until there is one winner. In real life elections, this form of 
-voting allows for proportional representation and allows minority groups to be 
-represented -- essentially it is a fairer method of voting that more properly 
-represents the way people voted.
+Instant-Runoff Voting is a different type of voting system which has been
+used for votes in some countries like Australia, India, and Ireland. The basic 
+idea behind it is that you don't just vote for one option, but rather you rank 
+all options in order of your preferences. Then, the option with the least 
+'first ranked' votes get eliminated, and the voters for that option have their 
+second preferences redistributed, until there are just two options left. Then,
+the two options can be compared head-to-head in order to find the winner. In 
+real life elections, this form of voting allows for proportional 
+representation and allows minority groups to be represented -- essentially it 
+is a fairer method of voting that more properly represents the way people 
+voted.
 
 That was a lot of explanation, so let's try to implement some of this!
 
@@ -111,3 +113,6 @@ contract TestMuffin {
 
 Now you've mastered functions in Solidity! (Still plently to say, but let see what's after)
 
+## Just For Fun
+
+{% e.g. add a payable for bribery %} 
