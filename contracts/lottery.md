@@ -16,6 +16,8 @@ Since we can't generate a random value inside our smart contract, instead we'll 
 
 This prevents users from seeing what numbers other users have provided by requiring hashes to be submitted first, thus avoiding users from gaming the system. It also does not require the smart contract to generate any random numbers, and behaviour is fully deterministic.
 
+NB: This process assumes that all participants are honest-but-curious, i.e. they will follow the procedure correctly but may attempt to find out extra information if possible. If the participants do not follow the procedure correctly then the process will not work. The best way to ensure that the process is followed is by taking some kind of deposit when a hash is given, and returning it when a correct number is given.
+
 {% exercise %}
 The contract defined below will carry out the lottery procedure. Fill in the blanks in the code to implement the functionality of the lottery system.
 
@@ -27,6 +29,9 @@ The contract defined below will carry out the lottery procedure. Fill in the bla
 {% initial %}
 pragma solidity ^0.4.24;
 contract Lottery {
+    // The maximum number of entrants allowed.
+    uint private MAX_ENTRANTS = 100;
+
     // The hashes each entract has provided.
     mapping(address => bytes32) private randomHashes;
     
@@ -49,7 +54,7 @@ contract Lottery {
     
     // Allows a user to provide the hash of their random number.
     function provideRandomHash(bytes32 h) external {
-        require(!lotteryStarted && randomHashes[msg.sender] == "");
+        require(!lotteryStarted && randomHashes[msg.sender] == "" && entrants.length <= MAX_ENTRANTS);
         
         // Add code to add the hashes to the mapping here, and update the list of entrants.
 
@@ -105,6 +110,9 @@ contract Lottery {
 {% solution %}
 pragma solidity ^0.4.24;
 contract Lottery {
+    // The maximum number of entrants allowed.
+    uint private MAX_ENTRANTS = 100;
+    
     // The hashes each entract has provided.
     mapping(address => bytes32) private randomHashes;
     
@@ -127,7 +135,7 @@ contract Lottery {
     
     // Allows a user to provide the hash of their random number.
     function provideRandomHash(bytes32 h) external {
-        require(!lotteryStarted && randomHashes[msg.sender] == "");
+        require(!lotteryStarted && randomHashes[msg.sender] == "" && entrants.length <= MAX_ENTRANTS);
         
         randomHashes[msg.sender] = h;
         entrants.push(msg.sender);
