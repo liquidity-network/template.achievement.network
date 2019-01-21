@@ -93,7 +93,7 @@ import 'Accountant.sol';
 
 contract Tests {
   // Declare variable associated to the contract you want to test
-  Accountant deployedAccountant = new Accountant();
+  Accountant deployedAccountant = new Accountant(__ADDRESS__);
 
   // test function
   // IMPORTANT: only one assertion per function
@@ -103,17 +103,17 @@ contract Tests {
     Assert.equal(result, expected, "Partitions is not properly implemented");
   }
   
-  //function testPartitions2() public {
-  //  uint result = deployedAccountant.partitions(20);
-  //  uint expected = 41;
-  //  Assert.equal(result, expected, "Partitions is not properly implemented");
-  //}
-  //
-  //function testPartitions3() public {
-  //  uint result = deployedAccountant.partitions(50);
-  //  uint expected = 450;
-  //  Assert.equal(result, expected, "Partitions is not properly implemented");
-  //}
+  function testPartitions2() public {
+    uint result = deployedAccountant.partitions(20);
+    uint expected = 41;
+    Assert.equal(result, expected, "Partitions is not properly implemented");
+  }
+  
+  function testPartitions3() public {
+    uint result = deployedAccountant.partitions(50);
+    uint expected = 450;
+    Assert.equal(result, expected, "Partitions is not properly implemented");
+  }
 
   // event to communicate with the web interface
   event TestEvent(bool indexed result, string message);
