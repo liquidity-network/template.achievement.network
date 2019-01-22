@@ -139,7 +139,37 @@ constructor(uint8 _numCandidates) public {
 Great! You're really getting the hang of this. Now let's move on to the meat of
 the contract -- the methods!
 
-Firstly, we'll try to 
+You have previously seen _modifiers_. For this exercise, we'll create two. One,
+`isRegulator` to check if the message sender is the regulator, and
+`hasNotVoted` to check if an address has voted or not.
+
+Then, we'll need to create three methods:
+
+* `setEligibleByDefault(addr voter)`: When a new `Voter` struct is created, the
+  default value for the `eligibleToVote` function is `false`. This method
+  should allow the regulator to give a voter the power to vote, as long as they
+  haven't already voted.
+* `vote(uint8 _votedFor)`: Given an index into the `candidates` array, this
+  method should place the vote for that candidate on behalf of the user that
+  called the method. Make sure that the user hasn't already voted!
+* `getWinner()`: This method should return the index of the winning
+  `candidate`. You can do this by iterating over the voters and tallying up the
+  votes for each candidate.
+
+Think you got it? Try out the exercise! There are some hints below if you get
+stuck.
+
+{% exercise %}
+
+{% hints %}
+
+{% initial %}
+
+{% solution %}
+
+{% validation %}
+
+{% endexercise %}
 
 ## Extensions
 
@@ -156,3 +186,7 @@ what you could do:
 
 * Provide a method for the regulator to add details for a candidate including
   the name and the party.
+
+> **Food for Thought**: Voting on the blockchain has many advantages, but there
+> are disadvantages too. For example, what if you don't want your vote to be
+> publicly viewable? Can you think of any more disadvantages of this method?
