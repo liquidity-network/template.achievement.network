@@ -128,8 +128,27 @@ constructor(uint8 _numCandidates) public {
 
 {% validation %}
 
+// Add validation here.
+
 {% endexercise %}
 
-## Just For Fun
+Great! You're really getting the hang of this. Now let's move on to the meat of
+the contract -- the methods!
 
-{% e.g. add a payable for bribery %} 
+Firstly, we'll try to 
+
+## Extensions
+
+You've now created a basic voting system in Solidity, go you! If you want, why
+not try extending the functionality of the contract? Here are some ideas for
+what you could do:
+
+* Allow users to delegate their vote to another user, just like in real life.
+  For this, you might need to change the struct of a voter to account for the
+  fact that they might vote more than once.
+
+* Provide a method for finding out how many votes any candidate got, not just
+  reporting the winner.
+
+* Provide a method for the regulator to add details for a candidate including
+  the name and the party.
