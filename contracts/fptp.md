@@ -130,6 +130,11 @@ contract Election {
     uint8 votedFor;
   }
 
+  mapping(address => Voter) voters;
+  uint8 numVoters;
+  address regulator;
+  Candidate[] candidates;
+
   constructor(uint8 _numCandidates) public {
     // Write your code in here.
   }
@@ -151,6 +156,11 @@ contract Election {
     bool hasVoted;
     uint8 votedFor;
   }
+
+  mapping(address => Voter) voters;
+  uint8 numVoters;
+  address regulator;
+  Candidate[] candidates;
 
   constructor(uint8 _numCandidates) public {
     // The regulator is the mediator of the vote, and the person/organisation 
@@ -205,7 +215,6 @@ Implement the two modifiers and the `setEligibleToVote(addr voter)`,
 * Don't forget to use the modifiers where appropriate.
 
 {% initial %}
-
 pragma solidity ^0.4.24;
 
 contract Election {
@@ -221,6 +230,11 @@ contract Election {
     uint8 votedFor;
   }
 
+  mapping(address => Voter) voters;
+  uint8 numVoters;
+  address regulator;
+  Candidate[] candidates;
+  
   constructor(uint8 _numCandidates) public {
     regulator = msg.sender;
     candidates.length = _numCandidates;
@@ -250,6 +264,82 @@ contract Election {
 }
 
 {% solution %}
+pragma solidity ^0.4.24;
+
+contract Election {
+
+  struct Candidate {
+    bytes32 name;
+    bytes32 party;
+  }
+
+  struct Voter {
+    bool eligibleToVote;
+    bool hasVoted;
+    uint8 votedFor;
+  }
+
+  mapping(address => Voter) voters;
+  uint8 numVoters;
+  address regulator;
+  Candidate[] candidates;
+  
+  constructor(uint8 _numCandidates) public {
+    regulator = msg.sender;
+    candidates.length = _numCandidates;
+  }
+
+  modifier isRegulator(address addr) {
+    // Simply check that the address provided matches that of the regulator.
+    require(addr == regulator);
+    _;
+  }
+
+  modifier hasNotVoted(address addr) {
+    // Just check inside the voter's struct whether their hasVoted field is
+    // set or not.
+    require(!voters[addr].hasVoted);
+    _;
+  }
+
+  // Allow the voter to vote in the election
+  // Don't forget to include both modifiers!
+  function setEligibleToVote(address voter) public isRegulator(msg.sender) 
+      hasNotVoted(voter) {
+    // Set the address as eligible to vote, and increase the number of voters
+    // by one so we can keep track.
+    voters[voter].eligibleToVote = true;
+    numVoters++;
+  }
+  
+  // Again, don't forget to make sure the user hasn't already voted!
+  function vote(uint8 _votedFor) public hasNotVoted(msg.sender) {
+    // Make sure that their vote is for a valid candidate...
+    require(_votedFor >= 0 && _votedFor < candidates.length);
+    // And then update their fields...
+    Voter storage voter = voters[msg.sender];
+    voter.votedFor = _votedFor;
+    voter.hasVoted = true;
+  }
+
+  function getWinner() public view returns (uint8 _winner) {
+    // Keep track of how many votes each candidate gets
+    uint[] memory numVotes;
+    // We'll also keep track of what the winning number of votes is so far...
+    uint winningVotes = 0;
+    for (uint8 i = 0; i < numVoters; i++) {
+      // Increment the number of votes for that candidate
+      numVotes[voters[i].votedFor]++;
+      // And if that beats the current best, update who the winner is and what
+      // the winning total is
+      if (numVotes[voters[i].votedFor] >= winningVotes) {
+        winningVotes = numVotes[voters[i].votedFor];
+        _winner = voters[i].votedFor;
+      }
+    }
+  }
+
+}
 
 {% validation %}
 
