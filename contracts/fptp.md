@@ -106,9 +106,13 @@ Now imagine you are the regulator of the vote.
 
 {% exercise %}
 
-Fill in the `Election` constructor method to initialise the regular as the
+Fill in the `Election` constructor method to initialise the regulator as the
 `msg.sender`, and the length of the `Candidate` array to be the value of the
 parameter passed into the method.
+
+{% hints %}
+
+All arrays have a `length` field which you can access and set.
 
 {% initial %}
 pragma solidity ^0.4.24;
@@ -177,7 +181,7 @@ You have previously seen _modifiers_. For this exercise, we'll create two. One,
 
 Then, we'll need to create three methods:
 
-* `setEligibleByDefault(addr voter)`: When a new `Voter` struct is created, the
+* `setEligibleToVote(addr voter)`: When a new `Voter` struct is created, the
   default value for the `eligibleToVote` function is `false`. This method
   should allow the regulator to give a voter the power to vote, as long as they
   haven't already voted.
@@ -193,9 +197,57 @@ stuck.
 
 {% exercise %}
 
+Implement the two modifiers and the `setEligibleToVote(addr voter)`, 
+`vote(uint8 _votedFor)`, and `getWinner()` methods as described.
+
 {% hints %}
 
+* Don't forget to use the modifiers where appropriate.
+
 {% initial %}
+
+pragma solidity ^0.4.24;
+
+contract Election {
+
+  struct Candidate {
+    bytes32 name;
+    bytes32 party;
+  }
+
+  struct Voter {
+    bool eligibleToVote;
+    bool hasVoted;
+    uint8 votedFor;
+  }
+
+  constructor(uint8 _numCandidates) public {
+    regulator = msg.sender;
+    candidates.length = _numCandidates;
+  }
+
+  modifier isRegulator(address addr) {
+    // Write your code here.
+  }
+
+  modifier hasNotVoted(address addr) {
+    // Write your code here.
+  }
+
+  // Allow the voter to vote in the election
+  function setEligibleToVote(address voter) public {
+    // Write your code here.
+  }
+
+  function vote(uint8 _votedFor) public {
+    // Write your code here.
+  }
+
+  function getWinner() public view returns (uint8 _winner) {
+    // Write your code here.
+  }
+
+}
 
 {% solution %}
 
