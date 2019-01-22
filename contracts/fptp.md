@@ -111,21 +111,53 @@ Fill in the `Election` constructor method to initialise the regular as the
 parameter passed into the method.
 
 {% initial %}
+pragma solidity ^0.4.24;
 
-constructor(uint8 _numCandidates) public {
-  // Write your code in here.
+contract Election {
+
+  struct Candidate {
+    bytes32 name;
+    bytes32 party;
+  }
+
+  struct Voter {
+    bool eligibleToVote;
+    bool hasVoted;
+    uint8 votedFor;
+  }
+
+  constructor(uint8 _numCandidates) public {
+    // Write your code in here.
+  }
+
 }
 
 {% solution %}
+pragma solidity ^0.4.24;
 
-constructor(uint8 _numCandidates) public {
-  // The regulator is the mediator of the vote, and the person/organisation 
-  // that initiated the contract.
-  regulator = msg.sender;
-  // If you think the regulator should be able to vote, you can include this:
-  // voters[regulator].eligibleToVote = true;
-  // Set the length of the candidates array to how many candidates we have.
-  candidates.length = _numCandidates;
+contract Election {
+
+  struct Candidate {
+    bytes32 name;
+    bytes32 party;
+  }
+
+  struct Voter {
+    bool eligibleToVote;
+    bool hasVoted;
+    uint8 votedFor;
+  }
+
+  constructor(uint8 _numCandidates) public {
+    // The regulator is the mediator of the vote, and the person/organisation 
+    // that initiated the contract.
+    regulator = msg.sender;
+    // If you think the regulator should be able to vote, you can include this:
+    // voters[regulator].eligibleToVote = true;
+    // Set the length of the candidates array to how many candidates we have.
+    candidates.length = _numCandidates;
+  }
+
 }
 
 {% validation %}
