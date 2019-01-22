@@ -82,6 +82,8 @@ pragma solidity ^0.4.24;
 
 Great! Now we have our notion of voters and candidates. 
 
+## Creating the Variables
+
 Let's keep track of addresses relating to voters, how many voters we have, our
 list of candidates, and finally the address of a _regulator_. The regulator is
 the address responsible for hosting the election - a bit like the electoral
@@ -131,6 +133,8 @@ constructor(uint8 _numCandidates) public {
 // Add validation here.
 
 {% endexercise %}
+
+## Implementing Some Functionality!
 
 Great! You're really getting the hang of this. Now let's move on to the meat of
 the contract -- the methods!
