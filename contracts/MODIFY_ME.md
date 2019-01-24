@@ -5,9 +5,11 @@ This exercise consists of two programs. These will help you have more practice w
 The first part of the exercise consists of a program that involves 4 different animals: a wolf, a goat, a bear and a farmer (the human). Each animal can do different things, including attacking, feeding or eating another animal.
 
 {% exercise %}
+
 Change the Farmer's name to Noah. Additionally, Noah is 22 years old and studies Computer Science.
 
 {% initial %}
+
 pragma solidity >=0.4.22 <0.6.0;
 
 contract Farmer {
@@ -23,6 +25,7 @@ contract Farmer {
 }
 
 {% solution %}
+
 pragma solidity >=0.4.22 <0.6.0;
 
 contract Farmer {
@@ -38,6 +41,7 @@ contract Farmer {
 }
 
 {% validation %}
+
 // Tests need proper pragma
 pragma solidity >=0.4.22 <0.6.0;
 import 'Assert.sol';
@@ -62,6 +66,7 @@ contract TestFarmer {
 {% endexercise %}
 
 {% exercise %}
+
 1) Give the Wolf a health level of 10
 2) Write a function called `attackFarmer` which is `public` and decrements the wolfs's health
 3) Write a function called `eatGoat` which is `public`, increments the wolf's health and returns its current health
@@ -70,6 +75,7 @@ contract TestFarmer {
 
 
 {% initial %}
+
 pragma solidity >=0.4.22 <0.6.0;
 
 contract Wolf {
@@ -85,6 +91,7 @@ contract Wolf {
 }
 
 {% solution %}
+
 pragma solidity >=0.4.22 <0.6.0;
 
 contract Wolf {
@@ -109,6 +116,7 @@ contract Wolf {
 }
 
 {% validation %}
+
 // Tests need proper pragma
 pragma solidity >=0.4.22 <0.6.0;
 import 'Assert.sol';
@@ -147,9 +155,11 @@ contract TestWolf {
 {% endexercise %}
 
 {% exercise %}
+
 The poor goat cannot do anything. It only has health of value 2 :-(. Add this to the contract.
 
 {% initial %}
+
 pragma solidity >=0.4.22 <0.6.0;
 
 contract Goat {
@@ -157,6 +167,7 @@ contract Goat {
 }
 
 {% solution %}
+
 pragma solidity >=0.4.22 <0.6.0;
 
 contract Goat {
@@ -164,6 +175,7 @@ contract Goat {
 }
 
 {% validation %}
+
 // Tests need proper pragma
 pragma solidity >=0.4.22 <0.6.0;
 import 'Assert.sol';
@@ -188,12 +200,14 @@ contract TestWolf {
 {% endexercise %}
 
 {% exercise %}
+
 Implement a `public` function called `decrementHealth` that will decrement the Bear's health by one.
 Attacking the Wolf, Farmer or Goat should decrement the Bear's health (by calling your decrementHealth() function). Implement a `public` function `getHealth` that will return the Bear's current health and a `public` function `setHealth` that will set the Bear's health to a `uint` value called newHealth passed in as a parameter argument.
 > **HINT**: The mutability of the getHealth function should be restricted to `view`
 
 
 {% initial %}
+
 pragma solidity >=0.4.22 <0.6.0;
 
 contract Bear {
@@ -225,6 +239,7 @@ contract Bear {
 }
 
 {% solution %}
+
 pragma solidity >=0.4.22 <0.6.0;
 
 contract Bear {
@@ -261,6 +276,7 @@ contract Bear {
 
 }
 {% validation %}
+
 // Tests need proper pragma
 pragma solidity >=0.4.22 <0.6.0;
 import 'Assert.sol';
@@ -323,12 +339,14 @@ contract TestBear {
 This part of the exercise is a little example of a contract that allows Minters to send money to each other and mint coins.
 
 {% exercise %}
+
 A minter has the following variables: minter (the minter's address), key, name and balance. Declare the missing variables in the order specified.
 1) Implement a function `sendCoin` that allows a Minter to send a coin to another Minter via a specified `address` called minterAddress. If the balance of the Minter who is sending is greater than 1 then this Minter's balance should be decremented and the receiving Minter's balance should be incremented. Return the sending Minter's new balance. REMEMBER: We do not want the balance to be found out by any other Minter...
 2) Implement a function `mint` that will increment the Minter's balance and return the new balance.
 > **HINT**: the address is the only thing that is `public` in a blockchain, so keep this in mind when declaring the variables, as well as the functions.
 
 {% initial %}
+
 pragma solidity >=0.4.22 <0.6.0;
 
 contract Minter {
@@ -355,6 +373,7 @@ contract Minter {
 }
 
 {% solution %}
+
 pragma solidity >=0.4.22 <0.6.0;
 
 contract Minter {
@@ -396,6 +415,7 @@ contract Minter {
 }
 
 {% validation %}
+
 // Tests need proper pragma
 pragma solidity ^0.5.2;
 import 'Assert.sol';
