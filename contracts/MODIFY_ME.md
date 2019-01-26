@@ -175,7 +175,7 @@ contract TwoSig {
 
     modifier isNotRegistered() {
         // This modifier checks if a participant has already registered
-        require (registered[msg.sender] == false);
+        require (!registered[msg.sender]);
         _;
     }
 
@@ -235,7 +235,7 @@ contract TwoSig {
     }
 
     modifier isNotRegistered() {
-        require (registered[msg.sender] == false);
+        require (!registered[msg.sender]);
         _;
     }
 
@@ -277,7 +277,7 @@ contract TwoSig {
     }
 
     modifier isNotRegistered() {
-        require (registered[msg.sender] == false);
+        require (!registered[msg.sender]);
         _;
     }
 
@@ -287,7 +287,7 @@ contract TwoSig {
 
     modifier allRegistered() {
         // This modifier checks if both participants have registered
-        require (registered[partyA] == true && registered[partyB] == true);
+        require (registered[partyA] && registered[partyB]);
         _;
     }
 
