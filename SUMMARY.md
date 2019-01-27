@@ -2,6 +2,7 @@
 
 * [Introduction](README.md)
 * [Template exercise](contracts/MODIFY_ME.md)
+* [Execution Costs](contracts/EXECUTION_COSTS.md)
 
 -----
 
