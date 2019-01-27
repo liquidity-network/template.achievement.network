@@ -26,7 +26,7 @@ contract Pool {
 
   struct Worker { 
     address addrWorker;
-    uint id;
+    uint id; 
   }
 
 
