@@ -51,7 +51,7 @@ contract Pool {
 
   function register() public {
     workers.push(new Worker({addrWorker: msg.sender, id: uniqueIdentifier}));
-    \\ Make sure uniqueIdentifier is always uniqueIdentifier
+    \\ Make sure uniqueIdentifier is always unique
   }
 
   function foundReward() public payable {
