@@ -29,15 +29,15 @@ Let's try implementing our own FPTP system!
 ## Setting up Structures
 
 Let's think about what we need to represent in our voting system. We will have
-the concept of a voter (that's you!) and a candidate (that's who you vote
-for!). A candidate has a name and a party that they are representing. A voter
-should have the notion of whether they have voted, who they have voted for, and
-whether they are eligible to vote in the first place (in real life, this could
-be children or those who haven't registered to vote).
+the concept of a vote and a candidate (that's who you vote for!). A candidate 
+has a name and a party that they are representing. A vote should record which
+candidate was voted for and the address of whoever voted so we can find out
+who voted for who later.
 
 {% exercise %}
-Write a struct for a `Voter` with `eligibleToVote`, `hasVoted`, and `votedFor` 
-fields, and a `Candidate` with `name` and `party` fields.
+Write a struct for a `Vote` with `voter` and `votedFor` 
+fields (which store address and the candidate index), and a `Candidate` with 
+`name` and `party` fields.
 
 {% initial %}
 pragma solidity ^0.4.24;
@@ -47,7 +47,7 @@ contract Election {
   // Fill in the fields for these two structs!
   struct Candidate { /***/ }
 
-  struct Voter { /***/ }
+  struct Vote { /***/ }
 
 }
 
@@ -65,9 +65,8 @@ contract Election {
   }
 
   // Did you get the types correct?
-  struct Voter {
-    bool eligibleToVote;
-    bool hasVoted;
+  struct Vote {
+    address voter;
     uint8 votedFor;
   }
 
@@ -76,130 +75,50 @@ contract Election {
 {% validation %}
 pragma solidity ^0.4.24;
 
-// Add validation here.
+import 'Assert.sol';
+import 'Election.sol';
+
+contract TestElection {
+
+  // Nothing to test here. It's just a struct.
+
+}
 
 {% endexercise %}
 
-Great! Now we have our notion of voters and candidates. 
+Did you get it right? Great! Now we have our notion of votes and candidates. 
 
 ## Creating the Variables
 
-Let's keep track of addresses relating to voters, how many voters we have, our
-list of candidates, and finally the address of a _regulator_. The regulator is
-the address responsible for hosting the election - a bit like the electoral
-commission.
+Let's keep track of the votes we have recorded, the number of votes we have
+had, and an array of our candidates.
 
 ```solidity
-  // This holds the mapping from addresses to a voter struct, holding details
-  // about whether or not the user has voted, and who for.
-  mapping(address => Voter) voters;
-  // We will keep track of how many people are eligible to vote.
-  uint8 numVoters;
-  // The regulator is the person responsible for deploying the smart contract
-  // and giving people the right to vote.
-  address regulator;
+  // This contains all the votes we have recorded and which candidate they were
+  // for. We use the uint as an index.
+  mapping(uint => Vote) votes;
+  // We will keep track of how many votes we have recorded so far.
+  uint8 numVotes;
   // Our array of candidates.
   Candidate[] candidates;
 ```
 
-Now imagine you are the regulator of the vote. 
-
-{% exercise %}
-
-Fill in the `Election` constructor method to initialise the regulator as the
-`msg.sender`, and the length of the `Candidate` array to be the value of the
-parameter passed into the method.
-
-{% hints %}
-
-All arrays have a `length` field which you can access and set.
-
-{% initial %}
-pragma solidity ^0.4.24;
-
-contract Election {
-
-  struct Candidate {
-    bytes32 name;
-    bytes32 party;
-  }
-
-  struct Voter {
-    bool eligibleToVote;
-    bool hasVoted;
-    uint8 votedFor;
-  }
-
-  mapping(address => Voter) voters;
-  uint8 numVoters;
-  address regulator;
-  Candidate[] candidates;
-
-  constructor(uint8 _numCandidates) public {
-    // Write your code in here.
-  }
-
-}
-
-{% solution %}
-pragma solidity ^0.4.24;
-
-contract Election {
-
-  struct Candidate {
-    bytes32 name;
-    bytes32 party;
-  }
-
-  struct Voter {
-    bool eligibleToVote;
-    bool hasVoted;
-    uint8 votedFor;
-  }
-
-  mapping(address => Voter) voters;
-  uint8 numVoters;
-  address regulator;
-  Candidate[] candidates;
-
-  constructor(uint8 _numCandidates) public {
-    // The regulator is the mediator of the vote, and the person/organisation 
-    // that initiated the contract.
-    regulator = msg.sender;
-    // If you think the regulator should be able to vote, you can include this:
-    // voters[regulator].eligibleToVote = true;
-    // Set the length of the candidates array to how many candidates we have.
-    candidates.length = _numCandidates;
-  }
-
-}
-
-{% validation %}
-
-// Add validation here.
-
-{% endexercise %}
-
 ## Implementing Some Functionality!
 
-Great! You're really getting the hang of this. Now let's move on to the meat of
+You're really getting the hang of this. Now let's move on to the meat of
 the contract -- the methods!
-
-You have previously seen _modifiers_. For this exercise, we'll create two. One,
-`isRegulator` to check if the message sender is the regulator, and
-`hasNotVoted` to check if an address has voted or not.
 
 Then, we'll need to create three methods:
 
-* `setEligibleToVote(addr voter)`: When a new `Voter` struct is created, the
-  default value for the `eligibleToVote` function is `false`. This method
-  should allow the regulator to give a voter the power to vote, as long as they
-  haven't already voted.
+* `constructor(uint8 _numCandidates)`: When the contract is created, introduce
+  a constructor that sets the length of the candidates array to be how many
+  candidates we requested as the parameter.
 * `vote(uint8 _votedFor)`: Given an index into the `candidates` array, this
   method should place the vote for that candidate on behalf of the user that
-  called the method. Make sure that the user hasn't already voted!
+  called the method. Essentially, you'll want to add a new Vote into our map
+  of votes.
 * `getWinner()`: This method should return the index of the winning
-  `candidate`. You can do this by iterating over the voters and tallying up the
+  `candidate`. You can do this by iterating over the votes and tallying up the
   votes for each candidate.
 
 Think you got it? Try out the exercise! There are some hints below if you get
@@ -207,12 +126,16 @@ stuck.
 
 {% exercise %}
 
-Implement the two modifiers and the `setEligibleToVote(addr voter)`, 
+Implement the `constructor(uint8 _numCandidates)`, 
 `vote(uint8 _votedFor)`, and `getWinner()` methods as described.
 
 {% hints %}
 
-* Don't forget to use the modifiers where appropriate.
+* Don't forget to validate the input to your vote function to make sure the
+  supplied number is a real candidate.
+* Think carefully about when numVotes needs to be incremented.
+* You could use another array to tally up votes for each candidate in the 
+  getWinner() function.
 
 {% initial %}
 pragma solidity ^0.4.24;
@@ -224,32 +147,16 @@ contract Election {
     bytes32 party;
   }
 
-  struct Voter {
-    bool eligibleToVote;
-    bool hasVoted;
+  struct Vote {
+    address voter;
     uint8 votedFor;
   }
 
-  mapping(address => Voter) voters;
-  uint8 numVoters;
-  address regulator;
+  mapping(uint => Vote) votes;
+  uint8 numVotes = 0;
   Candidate[] candidates;
   
   constructor(uint8 _numCandidates) public {
-    regulator = msg.sender;
-    candidates.length = _numCandidates;
-  }
-
-  modifier isRegulator(address addr) {
-    // Write your code here.
-  }
-
-  modifier hasNotVoted(address addr) {
-    // Write your code here.
-  }
-
-  // Allow the voter to vote in the election
-  function setEligibleToVote(address voter) public {
     // Write your code here.
   }
 
@@ -257,7 +164,7 @@ contract Election {
     // Write your code here.
   }
 
-  function getWinner() public view returns (uint8 _winner) {
+  function getWinner() public view returns (uint8) {
     // Write your code here.
   }
 
@@ -273,93 +180,114 @@ contract Election {
     bytes32 party;
   }
 
-  struct Voter {
-    bool eligibleToVote;
-    bool hasVoted;
+  struct Vote {
+    address voter;
     uint8 votedFor;
   }
 
-  mapping(address => Voter) voters;
-  uint8 numVoters;
-  address regulator;
+  mapping(uint => Vote) votes;
+  uint8 numVotes = 0;
   Candidate[] candidates;
-  
+
   constructor(uint8 _numCandidates) public {
-    regulator = msg.sender;
+    // Simply set the `length` field of the candidates array.
     candidates.length = _numCandidates;
   }
 
-  modifier isRegulator(address addr) {
-    // Simply check that the address provided matches that of the regulator.
-    require(addr == regulator);
-    _;
-  }
-
-  modifier hasNotVoted(address addr) {
-    // Just check inside the voter's struct whether their hasVoted field is
-    // set or not.
-    require(!voters[addr].hasVoted);
-    _;
-  }
-
-  // Allow the voter to vote in the election
-  // Don't forget to include both modifiers!
-  function setEligibleToVote(address voter) public isRegulator(msg.sender) 
-      hasNotVoted(voter) {
-    // Set the address as eligible to vote, and increase the number of voters
-    // by one so we can keep track.
-    voters[voter].eligibleToVote = true;
-    numVoters++;
-  }
-  
-  // Again, don't forget to make sure the user hasn't already voted!
-  function vote(uint8 _votedFor) public hasNotVoted(msg.sender) {
-    // Make sure that their vote is for a valid candidate...
+  function vote(uint8 _votedFor) public {
+    // Don't forget to add some validation to check that the vote isn't for a
+    // non-existent candidate!
     require(_votedFor >= 0 && _votedFor < candidates.length);
-    // And then update their fields...
-    Voter storage voter = voters[msg.sender];
-    voter.votedFor = _votedFor;
-    voter.hasVoted = true;
+    // You can initialise a struct this way - quite simple!
+    // And of course, don't forget to increase the number of votes that you've
+    // received. That's what the numVotes++ is doing.
+    votes[numVotes++] = Vote(msg.sender, _votedFor);
   }
 
-  function getWinner() public view returns (uint8 _winner) {
-    // Keep track of how many votes each candidate gets
-    uint[] memory numVotes;
-    // We'll also keep track of what the winning number of votes is so far...
+  function getWinner() public view returns (uint8) {
+    // Store how many votes each candidate has received in an array.
+    uint[] memory votesPerCandidate =  new uint[](candidates.length);
+    // We'll also keep track of what the 'best' number of votes is so far,
+    // and who the winning candidate is so far.
     uint winningVotes = 0;
-    for (uint8 i = 0; i < numVoters; i++) {
-      // Increment the number of votes for that candidate
-      numVotes[voters[i].votedFor]++;
-      // And if that beats the current best, update who the winner is and what
-      // the winning total is
-      if (numVotes[voters[i].votedFor] >= winningVotes) {
-        winningVotes = numVotes[voters[i].votedFor];
-        _winner = voters[i].votedFor;
+    uint8 winner = 0;
+    // Iterate through the votes received, and update the number of winning
+    // votes and winner as you go.
+    for (uint i = 0; i < numVotes; i++) {
+      votesPerCandidate[votes[i].votedFor]++;
+      if (votesPerCandidate[votes[i].votedFor] >= winningVotes) {
+        winningVotes = votesPerCandidate[votes[i].votedFor];
+        winner = votes[i].votedFor;
       }
     }
+    // Return it!!
+    return winner;
   }
-
 }
 
 {% validation %}
+
+pragma solidity ^0.4.24;
+
+import 'Assert.sol';
+import 'Election.sol';
+
+contract TestElection {
+
+  Election election = Election(__ADDRESS__, 3);
+  
+  function testVoteForOneCandidate() public {
+    election.vote(1);
+
+    uint actual = election.winner();
+    uint expected = 1;
+    Assert.equal(actual, expected, "Vote for candidate 1 did not change winner.");
+  }
+  
+  function testVoteForTwoCandidates() public {
+    election.vote(1);
+    election.vote(2);
+    election.vote(2);
+    election.vote(2);
+
+    uint actual = election.winner();
+    uint expected = 2;
+    Assert.equal(actual, expected, "Votes for candidate 2 did not change winner.");
+  }
+
+  function testNumVotesGetsIncremented() public {
+    uint8 numVotesThen = numVotes;
+    
+    election.vote(1);
+
+    uint8 actual = numVotes;
+    uint expected = numVotesThen + 1;
+    Assert.equal(actual, expected, "numVotes was not incremented correctly.");
+  }
+
+  event TestEvent(bool indexed result, string message);
+
+}
 
 {% endexercise %}
 
 ## Extensions
 
-You've now created a basic voting system in Solidity, go you! If you want, why
+There you go! You have now created a very basic voting contract to allow you to
+vote out of a selection of choices. Go you! If you want, why
 not try extending the functionality of the contract? Here are some ideas for
 what you could do:
 
 * Allow users to delegate their vote to another user, just like in real life.
-  For this, you might need to change the struct of a voter to account for the
-  fact that they might vote more than once.
 
 * Provide a method for finding out how many votes any candidate got, not just
   reporting the winner.
 
-* Provide a method for the regulator to add details for a candidate including
+* Provide a method to add details for a candidate including
   the name and the party.
+
+* Add functionality so that an address can only vote once. Currently, our
+  program can allow an address to place as many votes as they want.
 
 > **Food for Thought**: Voting on the blockchain has many advantages, but there
 > are disadvantages too. For example, what if you don't want your vote to be
