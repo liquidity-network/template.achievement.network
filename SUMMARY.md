@@ -2,6 +2,7 @@
 
 * [Introduction](README.md)
 * [Template exercise](contracts/MODIFY_ME.md)
+* [New stack exercise](contracts/stack_tutorial.md)
 
 -----
 
