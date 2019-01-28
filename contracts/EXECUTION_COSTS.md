@@ -112,6 +112,8 @@ contract TestCounter {
   event TestEvent(bool indexed result, string message);
 }
 
+{% hints %} The Appendix G of [Ethereum's yellow paper](https://ethereum.github.io/yellowpaper/paper.pdf) specifies the gas cost for each operation.
+
 {% endexercise %}
 
 ## The impact on gas consumption
