@@ -1,8 +1,9 @@
 # Summary
 
 * [Introduction](README.md)
-* [Template exercise](contracts/MODIFY_ME.md)
-* [New stack exercise](contracts/stack_tutorial.md)
+* [Example exercise](contracts/EXAMPLE.md)
+* [Execution Costs](contracts/EXECUTION_COSTS.md)
+* [Stack exercise](contracts/stack_tutorial.md)
 
 -----
 

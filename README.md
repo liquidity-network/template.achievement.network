@@ -1,5 +1,9 @@
 # Template
 
+## Contribution
+
+Please add a spearate file in the `contracts` folder. Do not edit files in this folder. An example is presented [here in the EXAMPLE.md file](https://github.com/liquidity-network/template.achievement.network/blob/master/contracts/EXAMPLE.md).
+
 ## Requirements
 + NodeJS
 + Windows, Linux or MacOS
