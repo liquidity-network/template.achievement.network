@@ -9,6 +9,8 @@ When you execute a transaction, two things are specified:
 
 The following aims at demonstrating the above principles.
 
+{% hints %} The Appendix G of [Ethereum's yellow paper](https://ethereum.github.io/yellowpaper/paper.pdf) specifies the gas cost for each operation.
+
 ## A dummy contract
 
 Let's start with this very simple contract that stores a count of people.
