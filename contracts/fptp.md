@@ -26,6 +26,10 @@ has proven to be fairly robust in elections around the world.
 
 Let's try implementing our own FPTP system!
 
+> **Note:** For our voting system, all votes will be pubicly viewable. In real
+  life systems, this could influence the way in which people cast their votes.
+  We will talk about fixing this towards the end of the tutorial!
+
 ## Setting up Structures
 
 Let's think about what we need to represent in our voting system. We will have
@@ -288,6 +292,10 @@ what you could do:
 
 * Add functionality so that an address can only vote once. Currently, our
   program can allow an address to place as many votes as they want.
+
+* The voting process as it stands is entirely public. Try using a
+  [commit-and-reveal](https://karl.tech/learning-solidity-part-2-voting/)
+  scheme to withhold all casted votes until the election is over.
 
 > **Food for Thought**: Voting on the blockchain has many advantages, but there
 > are disadvantages too. For example, what if you don't want your vote to be
