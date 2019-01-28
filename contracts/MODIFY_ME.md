@@ -181,7 +181,7 @@ contract TwoSig {
 
     // Use the two modifiers above to create public function 'register'
     // This function registers a participant by updating the mapping
-    function register() public isParticipant() isNotRegistered() {
+    function register() public payable isParticipant() isNotRegistered() {
         registered[msg.sender] = true;
     }
 }
@@ -198,7 +198,7 @@ import 'TwoSig.sol';
 > **HINTS**
 > * The logic operator **OR** is `||` in Solidity. It might be useful to implement `isParticipant()`
 > * To get the address of a sender, use `msg.sender`
-> * The signature of `register()` is ``function register() public isParticipant() isNotRegistered();`
+> * The signature of `register()` is ``function register() public payable isParticipant() isNotRegistered();`
 
 
 ## Implementing the action
@@ -239,7 +239,7 @@ contract TwoSig {
         _;
     }
 
-    function register() public isParticipant() isNotRegistered() {
+    function register() public payable isParticipant() isNotRegistered() {
         registered[msg.sender] = true;
     }
 
@@ -281,7 +281,7 @@ contract TwoSig {
         _;
     }
 
-    function register() public isParticipant() isNotRegistered() {
+    function register() public payable isParticipant() isNotRegistered() {
         registered[msg.sender] = true;
     }
 
@@ -295,9 +295,9 @@ contract TwoSig {
     // This function should transfer the contract's balance to 'recipient'
     // Don't forget to reset the mapping afterwards!
     function action() public allRegistered() {
-        recipient.transfer(address(this).balance);
         registered[partyA] = false;
         registered[partyB] = false;
+        recipient.transfer(address(this).balance);
     }
 }
 
