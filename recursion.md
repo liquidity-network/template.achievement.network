@@ -15,6 +15,7 @@ recursion
 
 {% hints %}
 - If you want a recursion to stop at some point, you need to give it a condition which the contract can use to decide whether to go further or not.
+- You would probably use the ?: syntax above to create a condition.
 
 
 {% initial %}
