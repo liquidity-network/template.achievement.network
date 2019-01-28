@@ -68,10 +68,11 @@ contract TestMuffin {
     bool expected = true;
     Assert.equal(result, expected, "People likes muffin and you are telling the opposite");
   }
-  
+
   event TestEvent(bool indexed result, string message);
 }
 
 {% endexercise %}
 
 Now you've mastered functions in Solidity! (Still plently to say, but let see what's after)
+
