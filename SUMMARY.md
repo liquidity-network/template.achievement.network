@@ -2,6 +2,8 @@
 
 * [Introduction](README.md)
 * [Example exercise](contracts/EXAMPLE.md)
+* [Execution Costs](contracts/EXECUTION_COSTS.md)
+=======
 
 -----
 
