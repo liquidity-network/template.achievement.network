@@ -132,6 +132,30 @@ contract MissionControl {
 }
 
 {% validation %}
+// Tests need proper pragma
+pragma solidity ^0.4.24;
+
+// Assert library is available here
+import 'Assert.sol';
+// Import contracts, filenames should match contract names given in the solution
+import 'MissionControl.sol';
+
+contract TestMissionControl {
+  Contract deployedContract = Contract(__ADDRESS__);
+
+  // test function
+  // IMPORTANT: only one assertion per function
+  function testCompletedMission() public {
+    deployedContract.addMission('London', 10000);
+    deployedContract.completeMission(0);
+    bool result = deployedContract.missions[0].completed;
+    uint expected = true;
+    Assert.equal(result, expected, "The mission's status cannot be updated");
+  }
+
+  // event to communicate with the web interface
+  event TestEvent(bool indexed result, string message);
+}
 
 {% endexercise %}
 
