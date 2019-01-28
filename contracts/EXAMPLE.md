@@ -75,3 +75,4 @@ contract TestMuffin {
 {% endexercise %}
 
 Now you've mastered functions in Solidity! (Still plently to say, but let see what's after)
+
