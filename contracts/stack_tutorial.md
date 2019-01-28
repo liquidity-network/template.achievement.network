@@ -10,7 +10,7 @@ The idea behind a stack is "first-on: last-off". That is, each new value is adde
 
 ![Stack Diagram](stack.jpg)
 
-We are going to use the list data structure that we have already seen to more simply implement the stack. A `push` function is already implemented in singularity which adds a value to the front of the list - just what we need!
+We are going to use the list data structure that we have already seen to more simply implement the stack. A `push` function is already implemented in Solidity which adds a value to the front of the list - just what we need!
 
 However we need to be able to remove values from the from of the list too. This functionality is not automatically built-in so you need to implement it yourself to show your understanding.
 
