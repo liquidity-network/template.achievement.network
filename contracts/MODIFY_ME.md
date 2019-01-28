@@ -8,7 +8,7 @@ Let's start with an example.
 ```solidity
 contract Muffin {
   uint people = 0;
-
+  
   // Eat the virtual muffin and tell you how many people tried to do it (you included)
   function eat() public returns (uint) {
     people = people + 1;
@@ -25,15 +25,15 @@ pragma solidity ^0.4.24;
 
 contract Muffin {
   uint people = 0;
-
+  
   // Eat the virtual muffin and tell you how many people tried to do it (you included)
   function eat() public returns (uint) {
     people = people + 1;
     return people;
   }
-
+  
   // Declare your function below
-
+  
 }
 
 {% solution %}
@@ -41,13 +41,13 @@ pragma solidity ^0.4.24;
 
 contract Muffin {
   uint people = 0;
-
+  
   // Eat the virtual muffin and tell you how many people tried to do it (you included)
   function eat() public returns (uint) {
     people = people + 1;
     return people;
   }
-
+  
   // Declare your function below
   function like() pure public returns (bool) {
     return true;
@@ -62,13 +62,13 @@ import 'Muffin.sol';
 
 contract TestMuffin {
   Muffin muffin = Muffin(__ADDRESS__);
-
+  
   function testPeopleLikeMuffins() public {
     bool result = muffin.like();
     bool expected = true;
     Assert.equal(result, expected, "People likes muffin and you are telling the opposite");
   }
-
+  
   event TestEvent(bool indexed result, string message);
 }
 
